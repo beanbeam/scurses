@@ -30,13 +30,13 @@ class CursesWindow(object):
   def draw_string(self, x, y, str, colorp=0, underline=False, bold=False):
     try:
       style = curses.color_pair(colorp)
-      
+
       if bold:      style = style | curses.A_BOLD
       if underline: style = style | curses.A_UNDERLINE
-      
+
       self._window.addstr(y, x, str, style)
     except curses.error: pass
-  
+
   def read_key(self, flush_first=False):
     if flush_first:
       self.flush_input()
@@ -85,7 +85,7 @@ class CursesWindow(object):
   @property
   def _real_height(self):
     return self._window.getmaxyx()[0]
-  
+
   @property
   def width(self):
     if self._w_limit is None:
@@ -127,7 +127,7 @@ class CursesWindow(object):
       for i, l in enumerate(lines):
         if i >= scroll_amt and i < scroll_amt+h-1:
           self.draw_string(x, y-scroll_amt+i+(0 if title==None else 1), l[:w], main_color)
-      
+
       # Header
       if not title == None:
         self.draw_string(x, y, " "*w, bar_color)
@@ -138,7 +138,7 @@ class CursesWindow(object):
       self.draw_string_centered(y+h-1, "BACK - Space/Enter", bar_color)
       if max_scroll > 0:
         self.draw_string(x, y+h-1, "(%s/%s)" %(scroll_amt, max_scroll), bar_color)
-      
+
       self.refresh()
       key = self.read_key()
       if key == "KEY_DOWN":
@@ -194,13 +194,13 @@ class CursesWindow(object):
           # Throw away oldest character until we find a match
           if len(matches) == 0: typed = typed[1:]
           else: break
-        
+
         # Single match found
         if len(matches) == 1 and auto_enter:
           selected = matches[0]
           if auto_enter: return selected
-        
-        # Multiple matches found  
+
+        # Multiple matches found
         elif len(typed) >= 1:
           jumpto = matches[0]
           for m in matches:
