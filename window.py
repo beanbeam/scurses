@@ -13,7 +13,7 @@ class CursesWindow(object):
     self._window = window
     self._window.bkgd(" ", curses.color_pair(bg_color))
     self.cursor_visible = False
-    self.mouse_location = (0,0)
+    self.mouse_location = (0, 0)
     curses.mousemask(1)
     try:
       main(self)
@@ -113,8 +113,8 @@ class CursesWindow(object):
   # CONVENIENCE FUNCTIONS
   #######################
   def draw_string_centered(self, y, str, colorp=0):
-    midX = self.width/2
-    self.draw_string(midX-(len(str)/2), y, str, colorp)
+    midX = self.width // 2
+    self.draw_string(midX-(len(str) // 2), y, str, colorp)
 
   def do_text_area(self, lines, title=None, x=0, y=0, w=None, h=None, main_color=0, bar_color=1):
     if w == None: w = self.width
@@ -177,9 +177,9 @@ class CursesWindow(object):
       elif key == "MOUSE_1RELEASED":
         mouse = self.mouse_location
         if mouse[1] in range(top_y, top_y+2*len(options), 2):
-          clicked = (mouse[1] - top_y)/2
+          clicked = (mouse[1] - top_y) // 2
           label_length = len(options[clicked])+2
-          minX = (self.width - label_length)/2
+          minX = (self.width - label_length) // 2
           if mouse[0] >= minX and mouse[0] < minX+label_length:
             selected = clicked
             if mouse_enter: return selected
